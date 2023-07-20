@@ -64,7 +64,7 @@ export const loginValidate = (req, res, next) => {
   next();
 };
 
-export const isValidConnectBody = async (req, res, next) => {
+export const bigcomConnectValid = async (req, res, next) => {
   try {
     // CHECK IS ALL DETAILS ARE PROVIDED
     const { storeHash, accessToken, clientId, clientSecret } = req.body;

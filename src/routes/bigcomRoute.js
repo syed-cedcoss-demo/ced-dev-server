@@ -1,11 +1,12 @@
 import express from 'express';
-import { connectPlatform, orderCreated } from '../controllers/bigcomController.js';
+import { connectPlatform, importer, orderCreated } from '../controllers/bigcomController.js';
 import { auth } from '../middleware/auth.js';
-import { isValidConnectBody } from '../middleware/bodyValidate.js';
+import { bigcomConnectValid } from '../middleware/bodyValidate.js';
 
 const router = express.Router();
 
-router.post('/connect-platform', auth, isValidConnectBody, connectPlatform);
+router.post('/connect-platform', auth, bigcomConnectValid, connectPlatform);
+router.get('/product-import', auth, importer);
 
 // WEBHOOKs ROUTES
 router.post('/order-created', auth, orderCreated);

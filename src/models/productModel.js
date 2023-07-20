@@ -5,10 +5,13 @@ const productSchema = new Schema(
     user_id: {
       type: String
     },
-    source_product_id: {
+    type: {
       type: String
     },
-    source_product_name: {
+    product_id: {
+      type: String
+    },
+    title: {
       type: String
     },
     sku: {

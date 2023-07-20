@@ -1,4 +1,5 @@
 import userModel from '../models/userModel.js';
+import { productsImport } from '../utils/bigcomUtil.js';
 import appError from '../validations/appError.js';
 
 export const orderCreated = async (req, res) => {
@@ -47,11 +48,21 @@ export const connectPlatform = async (req, res) => {
     }
 
     await userModel.updateOne({ _id: req.userId }, { $push: { connected_platform: payload } });
+    productsImport(req.userId, res);
     return res.status(200).send({
       success: true,
       msg: 'account successfully connected',
       data: {}
     });
+  } catch (error) {
+    appError(res, error);
+  }
+};
+
+// BIGCOMMERCE PRODUCTS IMPORT
+export const importer = (req, res) => {
+  try {
+    productsImport(req.userId, res);
   } catch (error) {
     appError(res, error);
   }
