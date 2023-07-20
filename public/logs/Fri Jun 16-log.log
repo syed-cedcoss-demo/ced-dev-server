@@ -1,0 +1,100 @@
+2023-06-16T09:10:28.101Z - error ==> undefined, description==>undefined
+
+2023-06-16T09:11:20.543Z - error ==> undefined, description==>undefined
+
+2023-06-16T09:12:14.972Z - error ==> jwt must be provided, description==>JsonWebTokenError: jwt must be provided
+    at module.exports [as verify] (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/jsonwebtoken/verify.js:60:17)
+    at verifyJWT (file:///home/cedcoss/Syed/node/node-server-setup-2.0/src/services/jwt.js:10:20)
+    at auth (file:///home/cedcoss/Syed/node/node-server-setup-2.0/src/middleware/auth.js:8:27)
+    at Layer.handle [as handle_request] (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/route.js:144:13)
+    at Route.dispatch (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/route.js:114:3)
+    at Layer.handle [as handle_request] (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/layer.js:95:5)
+    at /home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/index.js:280:10)
+
+2023-06-16T09:12:38.210Z - error ==> jwt must be provided, description==>JsonWebTokenError: jwt must be provided
+    at module.exports [as verify] (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/jsonwebtoken/verify.js:60:17)
+    at verifyJWT (file:///home/cedcoss/Syed/node/node-server-setup-2.0/src/services/jwt.js:10:20)
+    at auth (file:///home/cedcoss/Syed/node/node-server-setup-2.0/src/middleware/auth.js:8:27)
+    at Layer.handle [as handle_request] (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/route.js:144:13)
+    at Route.dispatch (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/route.js:114:3)
+    at Layer.handle [as handle_request] (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/layer.js:95:5)
+    at /home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/index.js:280:10)
+
+2023-06-16T09:17:49.897Z - error ==> jwt must be provided, description==>JsonWebTokenError: jwt must be provided
+    at module.exports [as verify] (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/jsonwebtoken/verify.js:60:17)
+    at verifyJWT (file:///home/cedcoss/Syed/node/node-server-setup-2.0/src/services/jwt.js:10:20)
+    at auth (file:///home/cedcoss/Syed/node/node-server-setup-2.0/src/middleware/auth.js:8:27)
+    at Layer.handle [as handle_request] (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/route.js:144:13)
+    at Route.dispatch (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/route.js:114:3)
+    at Layer.handle [as handle_request] (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/layer.js:95:5)
+    at /home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/index.js:280:10)
+
+2023-06-16T09:17:54.065Z - error ==> jwt must be provided, description==>JsonWebTokenError: jwt must be provided
+    at module.exports [as verify] (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/jsonwebtoken/verify.js:60:17)
+    at verifyJWT (file:///home/cedcoss/Syed/node/node-server-setup-2.0/src/services/jwt.js:10:20)
+    at auth (file:///home/cedcoss/Syed/node/node-server-setup-2.0/src/middleware/auth.js:8:27)
+    at Layer.handle [as handle_request] (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/route.js:144:13)
+    at Route.dispatch (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/route.js:114:3)
+    at Layer.handle [as handle_request] (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/layer.js:95:5)
+    at /home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/index.js:280:10)
+
+2023-06-16T09:17:54.754Z - error ==> jwt must be provided, description==>JsonWebTokenError: jwt must be provided
+    at module.exports [as verify] (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/jsonwebtoken/verify.js:60:17)
+    at verifyJWT (file:///home/cedcoss/Syed/node/node-server-setup-2.0/src/services/jwt.js:10:20)
+    at auth (file:///home/cedcoss/Syed/node/node-server-setup-2.0/src/middleware/auth.js:8:27)
+    at Layer.handle [as handle_request] (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/route.js:144:13)
+    at Route.dispatch (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/route.js:114:3)
+    at Layer.handle [as handle_request] (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/layer.js:95:5)
+    at /home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/index.js:280:10)
+
+2023-06-16T09:17:55.130Z - error ==> jwt must be provided, description==>JsonWebTokenError: jwt must be provided
+    at module.exports [as verify] (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/jsonwebtoken/verify.js:60:17)
+    at verifyJWT (file:///home/cedcoss/Syed/node/node-server-setup-2.0/src/services/jwt.js:10:20)
+    at auth (file:///home/cedcoss/Syed/node/node-server-setup-2.0/src/middleware/auth.js:8:27)
+    at Layer.handle [as handle_request] (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/route.js:144:13)
+    at Route.dispatch (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/route.js:114:3)
+    at Layer.handle [as handle_request] (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/layer.js:95:5)
+    at /home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/index.js:280:10)
+
+2023-06-16T09:17:55.313Z - error ==> jwt must be provided, description==>JsonWebTokenError: jwt must be provided
+    at module.exports [as verify] (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/jsonwebtoken/verify.js:60:17)
+    at verifyJWT (file:///home/cedcoss/Syed/node/node-server-setup-2.0/src/services/jwt.js:10:20)
+    at auth (file:///home/cedcoss/Syed/node/node-server-setup-2.0/src/middleware/auth.js:8:27)
+    at Layer.handle [as handle_request] (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/route.js:144:13)
+    at Route.dispatch (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/route.js:114:3)
+    at Layer.handle [as handle_request] (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/layer.js:95:5)
+    at /home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/index.js:280:10)
+
+2023-06-16T09:17:55.541Z - error ==> jwt must be provided, description==>JsonWebTokenError: jwt must be provided
+    at module.exports [as verify] (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/jsonwebtoken/verify.js:60:17)
+    at verifyJWT (file:///home/cedcoss/Syed/node/node-server-setup-2.0/src/services/jwt.js:10:20)
+    at auth (file:///home/cedcoss/Syed/node/node-server-setup-2.0/src/middleware/auth.js:8:27)
+    at Layer.handle [as handle_request] (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/route.js:144:13)
+    at Route.dispatch (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/route.js:114:3)
+    at Layer.handle [as handle_request] (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/layer.js:95:5)
+    at /home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/cedcoss/Syed/node/node-server-setup-2.0/node_modules/express/lib/router/index.js:280:10)
+
