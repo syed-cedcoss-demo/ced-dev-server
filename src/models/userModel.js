@@ -29,6 +29,9 @@ const userSchema = new Schema(
       type: Number,
       default: Math.floor(Math.random() * 10000),
       select: false
+    },
+    connected_platform: {
+      type: Array
     }
   },
   { timestamps: true }

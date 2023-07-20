@@ -14,12 +14,13 @@ export const orderCreated = async (req, res) => {
 // BIGCOMMERCE CONNECT SHOP
 export const connectPlatform = async (req, res) => {
   try {
+    const { storeHash, accessToken, clientId, clientSecret } = req.body;
     const payload = {
       platform: 'bigcommerce',
-      access_token: req?.body?.accessToken,
-      store_hash: req?.body?.storeHash,
-      client_id: req?.body?.clientId,
-      client_secret: req?.body?.clientSecret
+      store_hash: storeHash,
+      access_token: accessToken,
+      client_id: clientId,
+      client_secret: clientSecret
     };
     const user = await userModel.find({ _id: req.userId });
     if (user.length === 0) {

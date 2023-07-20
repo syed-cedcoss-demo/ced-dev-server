@@ -1,3 +1,6 @@
+import userModel from '../models/userModel.js';
+import { getCall } from '../services/request.js';
+import appError from '../validations/appError.js';
 import {
   emailValidation,
   passwordValidation,
@@ -59,4 +62,49 @@ export const loginValidate = (req, res, next) => {
     });
   }
   next();
+};
+
+export const isValidConnectBody = async (req, res, next) => {
+  try {
+    // CHECK IS ALL DETAILS ARE PROVIDED
+    const { storeHash, accessToken, clientId, clientSecret } = req.body;
+    if (!storeHash || !accessToken || !clientId || !clientSecret) {
+      return res.status(406).send({
+        success: false,
+        msg: 'storeHash, accessToken, clientId and clientSecret are required'
+      });
+    }
+
+    // CHECK IF THE CLIENT CREDENTIALS ARE VALID
+    const isClientValid = await getCall({
+      url: 'v3/catalog/products?page=1&limit=1',
+      storeHash,
+      accessToken
+    });
+    if (!isClientValid?.data) {
+      return res.status(400).send({
+        success: false,
+        msg: 'Your credentials are invalid',
+        data: {}
+      });
+    }
+
+    // CHECK THE STORE IS ALREADY CONNECTED WITH ANOTHER ACCOUNT
+    const isStoreConnected = await userModel.findOne(
+      {
+        connected_platform: { $elemMatch: { store_hash: storeHash } }
+      },
+      { connected_platform: 1 }
+    );
+    if (isStoreConnected?._id) {
+      return res.status(406).send({
+        success: false,
+        msg: 'This store is already connected with another account',
+        data: {}
+      });
+    }
+    next();
+  } catch (error) {
+    appError(res, error);
+  }
 };
