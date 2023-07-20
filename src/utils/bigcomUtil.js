@@ -12,7 +12,7 @@ export const productsImport = async (id, res) => {
     const data = await getCall({
       storeHash: credential.store_hash,
       accessToken: credential.access_token,
-      url: `v3/catalog/products?page=${page}&limit=2&include=variants`
+      url: `v3/catalog/products?page=${page}&limit=100&include=variants`
     });
     const preparedProduct = [];
     if (data?.data?.length > 0) {
