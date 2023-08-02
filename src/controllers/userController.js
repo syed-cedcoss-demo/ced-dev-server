@@ -35,7 +35,7 @@ export const getUser = async (req, res) => {
       data: { rows: user, meta: {} }
     });
   } catch (error) {
-    appError(res, error);
+    appError(error, res);
   }
 };
 // get all users
@@ -65,7 +65,7 @@ export const getAllUser = async (req, res) => {
       }
     });
   } catch (error) {
-    appError(res, error);
+    appError(error, res);
   }
 };
 

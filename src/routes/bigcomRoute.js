@@ -9,7 +9,7 @@ router.post('/connect-platform', auth, bigcomConnectValid, connectPlatform);
 router.get('/product-import', auth, importer);
 
 // WEBHOOKs ROUTES
-router.post('/order-created', auth, orderCreated);
-router.post('/order-updated', auth, orderCreated);
+router.post('/order-webhooks', auth, orderCreated);
+router.post('/product-webhooks', auth, orderCreated);
 
 export default router;

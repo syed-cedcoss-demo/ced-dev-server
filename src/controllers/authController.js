@@ -32,7 +32,7 @@ export const signup = async (req, res) => {
       msg: 'user registration successful, check your mail to verify'
     });
   } catch (error) {
-    appError(res, error);
+    appError(error, res);
   }
 };
 
@@ -54,7 +54,7 @@ export const verify = async (req, res) => {
       }
     }
   } catch (error) {
-    appError(res, error);
+    appError(error, res);
   }
 };
 
@@ -81,7 +81,7 @@ export const login = async (req, res) => {
       res.status(404).send({ success: false, msg: 'Email id or password is not valid' });
     }
   } catch (error) {
-    appError(res, error);
+    appError(error, res);
   }
 };
 
@@ -101,7 +101,7 @@ export const forgetPassword = async (req, res) => {
       res.status(404).send({ success: false, msg: 'Email mot found' });
     }
   } catch (error) {
-    appError(res, error);
+    appError(error, res);
   }
 };
 
@@ -122,7 +122,7 @@ export const resetPassword = async (req, res) => {
       res.status(402).send({ success: false, msg: 'Invalid token' });
     }
   } catch (error) {
-    appError(res, error);
+    appError(error, res);
   }
 };
 

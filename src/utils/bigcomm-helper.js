@@ -1,7 +1,8 @@
+import notificationModel from '../models/notificationModel.js';
 import productModel from '../models/productModel.js';
 import queueProcessModel from '../models/queueProcessModel.js';
 import userModel from '../models/userModel.js';
-import { getCall } from '../services/request.js';
+import { getCall, postCall } from '../services/request.js';
 import appError from '../validations/appError.js';
 
 export const productsImport = async (id, res) => {
@@ -87,5 +88,66 @@ export const productsImport = async (id, res) => {
       process: 'product-import'
     });
     appError(error, res);
+  }
+};
+
+export const createWebhooks = async (props) => {
+  webhooks({
+    ...props,
+    message: 'create product webhook created',
+    body: {
+      scope: 'store/product/created',
+      destination: 'https://cedcoss-dev-server.serveo.net/bigcom/product-webhooks',
+      is_active: true,
+      headers: {
+        user_id: props?.userId
+      }
+    }
+  });
+  webhooks({
+    ...props,
+    message: 'delete product webhook created',
+    body: {
+      scope: 'store/product/deleted',
+      destination: 'https://cedcoss-dev-server.serveo.net/bigcom/product-webhooks',
+      is_active: true,
+      headers: {
+        user_id: props?.userId
+      }
+    }
+  });
+  webhooks({
+    ...props,
+    message: 'update product webhook created',
+    body: {
+      scope: 'store/product/updated',
+      destination: 'https://cedcoss-dev-server.serveo.net/bigcom/product-webhooks',
+      is_active: true,
+      headers: {
+        user_id: props?.userId
+      }
+    }
+  });
+};
+const webhooks = async (props) => {
+  try {
+    await postCall({
+      storeHash: props.store_hash,
+      accessToken: props.access_token,
+      url: 'v3/hooks',
+      body: props?.body
+    });
+    await notificationModel.create({
+      user_id: props?.userId,
+      message: props?.message,
+      type: 'success'
+    });
+  } catch (error) {
+    appError(error);
+    await notificationModel.create({
+      user_id: props?.userId,
+      message: error?.message,
+      type: 'error'
+    });
   }
 };

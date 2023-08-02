@@ -105,6 +105,6 @@ export const bigcomConnectValid = async (req, res, next) => {
     }
     next();
   } catch (error) {
-    appError(res, error);
+    appError(error, res);
   }
 };

@@ -14,6 +14,6 @@ export const auth = async (req, res, next) => {
       res.status(402).send({ success: false, msg: 'token verification error' });
     }
   } catch (error) {
-    appError(res, error);
+    appError(error, res);
   }
 };
