@@ -10,23 +10,22 @@ export const reActive = async () => {
 
 export const postCall = async (props) => {
   try {
+    const url = `https://api.bigcommerce.com/stores/${props?.storeHash}/${props?.url}`;
     const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Accept: 'application/json'
+        Accept: 'application/json',
+        'X-Auth-Token': props?.accessToken
       },
       body: JSON.stringify(props?.body)
     };
-    const res = await fetch('https://nodejs.org/api/documentation.json', options);
+    const res = await fetch(url, options);
     if (res.ok) {
-      const data = await res.json();
-      console.log(data);
+      return await res.json();
     }
   } catch (error) {
     console.log('error', error);
-  } finally {
-    console.log('always run');
   }
 };
 

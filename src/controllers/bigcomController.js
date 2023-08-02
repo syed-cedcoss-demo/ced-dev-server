@@ -189,3 +189,9 @@ const productsImport = async (props) => {
     });
   }
 };
+
+export const watchWebhookProduct = (req, res) => {
+  console.log('req?.body', req?.body);
+  console.log('req?.headers', req?.headers);
+  res.status(200).send('ok');
+};

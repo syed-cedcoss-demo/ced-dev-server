@@ -1,4 +1,4 @@
-# node-server-setup
+# ced-dev-server
 
 ### create .env file on root & put these variable
 
@@ -18,5 +18,3 @@ GOOGLE_CLIENT_SECRET = '';
 FACEBOOK_CLIENT_ID = '';
 FACEBOOK_CLIENT_SECRET = '';
 ```
-
-#### https://node-server-setup-2-0.onrender.com/

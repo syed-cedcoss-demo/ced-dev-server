@@ -2,6 +2,7 @@ import notificationModel from '../models/notificationModel.js';
 import productModel from '../models/productModel.js';
 import queueProcessModel from '../models/queueProcessModel.js';
 import userModel from '../models/userModel.js';
+import { noExpireSignJWT } from '../services/jwt.js';
 import { getCall, postCall } from '../services/request.js';
 import appError from '../validations/appError.js';
 
@@ -92,15 +93,16 @@ export const productsImport = async (id, res) => {
 };
 
 export const createWebhooks = async (props) => {
+  const token = await noExpireSignJWT({ userId: props?.userId });
   webhooks({
     ...props,
     message: 'create product webhook created',
     body: {
       scope: 'store/product/created',
-      destination: 'https://cedcoss-dev-server.serveo.net/bigcom/product-webhooks',
+      destination: 'https://cedcoss-dev-server.serveo.net/big-com/product-webhooks',
       is_active: true,
       headers: {
-        user_id: props?.userId
+        user_token: token
       }
     }
   });
@@ -109,10 +111,10 @@ export const createWebhooks = async (props) => {
     message: 'delete product webhook created',
     body: {
       scope: 'store/product/deleted',
-      destination: 'https://cedcoss-dev-server.serveo.net/bigcom/product-webhooks',
+      destination: 'https://cedcoss-dev-server.serveo.net/big-com/product-webhooks',
       is_active: true,
       headers: {
-        user_id: props?.userId
+        user_token: token
       }
     }
   });
@@ -121,10 +123,10 @@ export const createWebhooks = async (props) => {
     message: 'update product webhook created',
     body: {
       scope: 'store/product/updated',
-      destination: 'https://cedcoss-dev-server.serveo.net/bigcom/product-webhooks',
+      destination: 'https://cedcoss-dev-server.serveo.net/big-com/product-webhooks',
       is_active: true,
       headers: {
-        user_id: props?.userId
+        user_token: token
       }
     }
   });
