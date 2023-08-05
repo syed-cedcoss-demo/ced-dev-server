@@ -5,7 +5,7 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 import security from './config/security.js';
-import { googleLogin } from './controllers/authController.js';
+// import { googleLogin } from './controllers/authController.js';
 import authRoute from './routes/authRoute.js';
 import bigcomRoute from './routes/bigcomRoute.js';
 import userRoute from './routes/userRoute.js';
@@ -25,7 +25,7 @@ const cedDevServer = (app) => {
     security(app);
   }
   // OAUTH SETUP
-  googleLogin(app);
+  // googleLogin(app);
 
   // PUBLIC PATH
   const basePath = __dirname?.split('/src')[0];

@@ -21,9 +21,7 @@ export const postCall = async (props) => {
       body: JSON.stringify(props?.body)
     };
     const res = await fetch(url, options);
-    if (res.ok) {
-      return await res.json();
-    }
+    return await res.json();
   } catch (error) {
     console.log('error', error);
   }

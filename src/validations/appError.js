@@ -3,12 +3,13 @@ import { logCreator } from './logCreator.js';
 
 const appError = (err, res = null) => {
   console.log(chalk.bgRed.bold(err.message));
+  console.log(chalk.bgYellow.bold(err.stack));
   logCreator(`error ==> ${err.message}, description==>${err.stack}`);
   if (res) {
     if (process.env.NODE_ENV === 'production') {
       res.status(500).json({
         success: false,
-        msg: 'Internal server error',
+        msg: err.message,
         data: {}
       });
     } else {

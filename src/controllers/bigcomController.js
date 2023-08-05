@@ -1,20 +1,12 @@
-import notificationModel from '../models/notificationModel.js';
-import productModel from '../models/productModel.js';
 import queueProcessModel from '../models/queueProcessModel.js';
 import userModel from '../models/userModel.js';
-import { getCall } from '../services/request.js';
-import { createWebhooks } from '../utils/bigcomm-helper.js';
-import appError from '../validations/appError.js';
 
-export const orderCreated = async (req, res) => {
-  try {
-    console.log('req.headers', req.headers);
-    console.log('req.body', req.body);
-    res.status(200).send('ok');
-  } catch (error) {
-    appError(error, res);
-  }
-};
+import {
+  createWebhooks,
+  productsImport,
+  webhookProductUpdated
+} from '../utils/bigcom-helper.js';
+import appError from '../validations/appError.js';
 
 // BIGCOMMERCE CONNECT SHOP
 export const connectPlatform = async (req, res) => {
@@ -126,72 +118,28 @@ export const importer = async (req, res) => {
   }
 };
 
-const productsImport = async (props) => {
+// WATCH BIGCOMMERCE PRODUCT WEBHOOKS
+export const watchWebhookProduct = (req, res) => {
   try {
-    const data = await getCall({
-      storeHash: props?.store_hash,
-      accessToken: props?.access_token,
-      url: `v3/catalog/products?page=${props?.page}&limit=100&include=variants`
-    });
-    console.log(`page ${props?.page} next data imported`, data?.data?.length);
-    const preparedProduct = [];
-    if (data?.data?.length > 0) {
-      for (const sp of data?.data) {
-        if (sp?.variants?.length > 0) {
-          for (const vp of sp?.variants) {
-            preparedProduct.push({
-              user_id: props?.userId,
-              type: 'variant',
-              product_id: vp?.product_id,
-              title: vp?.name,
-              sku: vp?.sku,
-              product: vp
-            });
-          }
-        }
-
-        preparedProduct.push({
-          user_id: props?.userId,
-          type: 'simple',
-          product_id: sp?.id,
-          title: sp?.name,
-          sku: sp?.sku,
-          product: { ...sp, variants: [] }
-        });
-      }
-      await productModel.insertMany(preparedProduct);
-      if (data?.meta?.pagination?.total_pages > props?.page) {
-        productsImport({ ...props, page: props?.page + 1 });
-      } else {
-        await queueProcessModel.deleteOne({
-          user_id: props?.userId,
-          platform: 'bigcommerce',
-          process: 'product-import'
-        });
-        await notificationModel.create({
-          user_id: props?.userId,
-          message: 'Product Import Completed',
-          type: 'success'
-        });
-      }
+    const data = req?.body;
+    if (data?.scope === 'store/product/updated') {
+      console.log(`update webhook trigger for the user ${data?.userId}`);
+      webhookProductUpdated({ userId: req?.userId, productId: data?.data?.id });
     }
+    console.log('req.body', req.body);
+    res.status(200).send('ok');
   } catch (error) {
-    console.log('error?.message', error?.message);
-    await queueProcessModel.deleteOne({
-      user_id: props?.userId,
-      platform: 'bigcommerce',
-      process: 'product-import'
-    });
-    await notificationModel.create({
-      user_id: props?.userId,
-      message: error?.message,
-      type: 'error'
-    });
+    appError(error, res);
   }
 };
 
-export const watchWebhookProduct = (req, res) => {
-  console.log('req?.body', req?.body);
-  console.log('req?.headers', req?.headers);
-  res.status(200).send('ok');
+// WATCH BIGCOMMERCE ORDER  WEBHOOKS
+export const watchWebhookOrder = async (req, res) => {
+  try {
+    console.log('req.headers', req.headers);
+    console.log('req.body', req.body);
+    res.status(200).send('ok');
+  } catch (error) {
+    appError(error, res);
+  }
 };
