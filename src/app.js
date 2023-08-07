@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 
 import security from './config/security.js';
 // import { googleLogin } from './controllers/authController.js';
+import { serverStatus } from '../public/templates/info.js';
 import authRoute from './routes/authRoute.js';
 import bigcomRoute from './routes/bigcomRoute.js';
 import userRoute from './routes/userRoute.js';
@@ -34,7 +35,7 @@ const cedDevServer = (app) => {
   app.use('/logs', express.static(basePath + '/public/logs'));
 
   // APP ROUTES
-  app.get('/', (req, res) => res.status(200).send('<h2>Server is running...</h2>'));
+  app.get('/', (req, res) => res.status(200).send(serverStatus()));
   app.use('/auth', authRoute);
   app.use('/user', userRoute);
   app.use('/big-com', bigcomRoute);
