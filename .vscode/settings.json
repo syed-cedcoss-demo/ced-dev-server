@@ -1,0 +1,62 @@
+{
+   "editor.formatOnPaste": true,
+   "workbench.iconTheme": "material-icon-theme",
+   "workbench.colorTheme": "GitHub Dark Default",
+   "editor.formatOnSave": true,
+   "editor.fontSize": 14,
+   "window.zoomLevel": 0,
+   "editor.codeActionsOnSave": {
+      "source.fixAll": true,
+      "source.sortImports": true
+   },
+   "editor.tabSize": 3,
+   "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+   },
+   "javascript.updateImportsOnFileMove.enabled": "always",
+   "[javascriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+   },
+   "git.autofetch": true,
+   "git.enableSmartCommit": true,
+   "typescript.updateImportsOnFileMove.enabled": "always",
+   "[typescriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+   },
+   "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+   },
+   "editor.linkedEditing": true,
+   "[html]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+   },
+   "cSpell.userWords": [
+      "cedcommerce"
+   ],
+   "git.confirmSync": false,
+   "editor.quickSuggestions": {
+      "strings": true
+   },
+   "prettier.printWidth": 95,
+   "files.autoSave": "off",
+   "terminal.integrated.enableMultiLinePasteWarning": false,
+   "emmet.syntaxProfiles": {
+      "jsx": {
+         "markup.attributes": {
+            "class*": "className",
+         },
+         "markup.valuePrefix": {
+            "class*": "myStyles"
+         }
+      }
+   },
+   "[css]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+   },
+   "[markdown]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+   },
+   "[jsonc]": {
+      "editor.defaultFormatter": "vscode.json-language-features"
+   }
+}

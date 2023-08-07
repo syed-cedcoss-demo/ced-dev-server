@@ -18,3 +18,5 @@ GOOGLE_CLIENT_SECRET = '';
 FACEBOOK_CLIENT_ID = '';
 FACEBOOK_CLIENT_SECRET = '';
 ```
+
+#### staging URL: https://ced-dev-server.onrender.com
