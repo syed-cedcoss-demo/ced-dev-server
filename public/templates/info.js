@@ -25,7 +25,7 @@ export const serverStatus = () => {
          }
          @keyframes loading {
             to {
-               clip: rect(auto, 50px, auto, auto);
+               clip: rect(auto, 60px, auto, auto);
             }
          }
       </style>

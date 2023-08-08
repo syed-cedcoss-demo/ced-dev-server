@@ -16,15 +16,16 @@ export const signup = async (req, res) => {
     if (isUser?.length !== 0) {
       return res.status(200).send({ success: false, msg: 'user already exist' });
     }
-    const hashPass = await hashPassword(payload.password);
-    const otp = await genFourDigitOTP();
-    payload = { ...payload, password: hashPass, otp };
+    const hashPass = hashPassword(payload.password);
+    const otp = genFourDigitOTP();
+    const allSettled = await Promise.allSettled([hashPass, otp]);
+    payload = { ...payload, password: allSettled[0]?.value, otp: allSettled[1]?.value };
     const user = await userModel.create(payload);
     const token = await signJWT({ id: user?._id }, '1h');
     await registrationMail({
       name: user?.name,
       email: payload?.email,
-      otp,
+      otp: allSettled[1]?.value,
       url: `${process.env.SERVER_URL}/auth/verify?token=${token}`
     });
     res.status(200).send({

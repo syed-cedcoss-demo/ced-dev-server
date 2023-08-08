@@ -1,0 +1,28 @@
+2023-08-07T09:26:12.997Z - error ==> jwt expired, description==>TokenExpiredError: jwt expired
+    at /home/cedcoss/Syed/node/ced-dev-server/node_modules/jsonwebtoken/verify.js:190:21
+    at getSecret (/home/cedcoss/Syed/node/ced-dev-server/node_modules/jsonwebtoken/verify.js:97:14)
+    at module.exports [as verify] (/home/cedcoss/Syed/node/ced-dev-server/node_modules/jsonwebtoken/verify.js:101:10)
+    at verifyJWT (file:///home/cedcoss/Syed/node/ced-dev-server/src/services/jwt.js:13:20)
+    at auth (file:///home/cedcoss/Syed/node/ced-dev-server/src/middleware/auth.js:8:27)
+    at Layer.handle [as handle_request] (/home/cedcoss/Syed/node/ced-dev-server/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/cedcoss/Syed/node/ced-dev-server/node_modules/express/lib/router/route.js:144:13)
+    at Route.dispatch (/home/cedcoss/Syed/node/ced-dev-server/node_modules/express/lib/router/route.js:114:3)
+    at Layer.handle [as handle_request] (/home/cedcoss/Syed/node/ced-dev-server/node_modules/express/lib/router/layer.js:95:5)
+    at /home/cedcoss/Syed/node/ced-dev-server/node_modules/express/lib/router/index.js:284:15
+
+2023-08-07T10:38:29.707Z - error ==> user validation failed: password: Cast to string failed for value "Promise {
+  '$2a$10$ntaBq9YQW6a1weR8.wdcNOmxSRdqBg4YjsXQee5hoHu5hdzi151/2'
+}" (type Promise) at path "password", otp: Cast to Number failed for value "Promise { '9757' }" (type Promise) at path "otp", description==>ValidationError: user validation failed: password: Cast to string failed for value "Promise {
+  '$2a$10$ntaBq9YQW6a1weR8.wdcNOmxSRdqBg4YjsXQee5hoHu5hdzi151/2'
+}" (type Promise) at path "password", otp: Cast to Number failed for value "Promise { '9757' }" (type Promise) at path "otp"
+    at Document.invalidate (/home/cedcoss/Syed/node/ced-dev-server/node_modules/mongoose/lib/document.js:3157:32)
+    at model.$set (/home/cedcoss/Syed/node/ced-dev-server/node_modules/mongoose/lib/document.js:1453:12)
+    at model.$set (/home/cedcoss/Syed/node/ced-dev-server/node_modules/mongoose/lib/document.js:1113:16)
+    at model.Document (/home/cedcoss/Syed/node/ced-dev-server/node_modules/mongoose/lib/document.js:164:12)
+    at model.Model (/home/cedcoss/Syed/node/ced-dev-server/node_modules/mongoose/lib/model.js:122:12)
+    at new model (/home/cedcoss/Syed/node/ced-dev-server/node_modules/mongoose/lib/model.js:4682:15)
+    at /home/cedcoss/Syed/node/ced-dev-server/node_modules/mongoose/lib/model.js:2914:18
+    at Array.map (<anonymous>)
+    at Function.create (/home/cedcoss/Syed/node/ced-dev-server/node_modules/mongoose/lib/model.js:2903:30)
+    at signup (file:///home/cedcoss/Syed/node/ced-dev-server/src/controllers/authController.js:24:34)
+

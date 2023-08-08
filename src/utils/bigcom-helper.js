@@ -13,7 +13,10 @@ export const productsImport = async (props) => {
       accessToken: props?.access_token,
       url: `v3/catalog/products?page=${props?.page}&limit=100&include=variants`
     });
-    console.log(`page ${props?.page} next data imported`, data?.data?.length);
+    console.log(
+      `page ${props?.page} next ${data?.data?.length} data imported, total: `,
+      data?.data?.length * props?.page
+    );
     const preparedProduct = [];
     if (data?.data?.length > 0) {
       for (const sp of data?.data) {
@@ -218,6 +221,44 @@ export const webhookProductUpdated = async (props) => {
       },
       preparedProduct
     );
+  } catch (error) {
+    appError(error);
+  }
+};
+
+// PRODUCT CREATED ON BIG-COMMERCE STORE
+export const webhookProductCreated = async (props) => {
+  try {
+    const user = await userModel.findOne({ _id: props?.userId });
+    const credential = user?.connected_platform?.find((el) => el?.platform === 'bigcommerce');
+    const res = await getCall({
+      storeHash: credential?.store_hash,
+      accessToken: credential?.access_token,
+      url: `v3/catalog/products/${props?.productId}?include=variants`
+    });
+    const preparedProduct = [];
+
+    if (res?.data?.variants?.length > 0) {
+      for (const vp of res?.data?.variants) {
+        preparedProduct.push({
+          user_id: props?.userId,
+          type: 'variant',
+          product_id: vp?.product_id,
+          title: vp?.name,
+          sku: vp?.sku,
+          product: vp
+        });
+      }
+    }
+    preparedProduct.push({
+      user_id: props?.userId,
+      type: 'simple',
+      product_id: res?.data?.id,
+      title: res?.data?.name,
+      sku: res?.data?.sku,
+      product: { ...res?.data, variants: [] }
+    });
+    await productModel.create(preparedProduct);
   } catch (error) {
     appError(error);
   }
