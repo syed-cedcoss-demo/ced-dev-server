@@ -60,7 +60,6 @@ export const productsImport = async (props) => {
           }
         }
       }
-      console.log('preparedProduct?.length', preparedProduct?.length);
       await productModel.insertMany(preparedProduct);
       if (data?.meta?.pagination?.total_pages > props?.page) {
         productsImport({ ...props, page: props?.page + 1 });
