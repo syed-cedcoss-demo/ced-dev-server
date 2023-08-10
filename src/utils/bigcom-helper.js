@@ -11,36 +11,56 @@ export const productsImport = async (props) => {
     const data = await getCall({
       storeHash: props?.store_hash,
       accessToken: props?.access_token,
-      url: `v3/catalog/products?page=${props?.page}&limit=100&include=variants`
+      url: `v3/catalog/products?page=${props?.page}&limit=50&include=variants`
     });
-    console.log(
-      `page ${props?.page} next ${data?.data?.length} data imported, total: `,
-      data?.data?.length * props?.page
-    );
+    const per = (props?.page / data?.meta?.pagination?.total_pages) * 100;
+    console.log(`${per.toFixed(2)}% product imported`);
+
     const preparedProduct = [];
     if (data?.data?.length > 0) {
-      for (const sp of data?.data) {
-        if (sp?.variants?.length > 0) {
-          for (const vp of sp?.variants) {
-            preparedProduct.push({
+      for await (const sp of data?.data) {
+        if (sp?.variants?.length > 1) {
+          console.log('variants', sp?.variants?.length);
+          for await (const vp of sp?.variants) {
+            const payload = {
               user_id: props?.userId,
               type: 'variant',
               product_id: vp?.product_id,
               title: vp?.name,
               sku: vp?.sku,
               product: vp
+            };
+            const isExist = await productModel.findOne({
+              user_id: props?.userId,
+              product_id: vp?.product_id,
+              type: 'variant'
             });
+            if (!isExist) {
+              preparedProduct.push(payload);
+            }
+          }
+        } else {
+          const isExist = await productModel.findOne({
+            user_id: props?.userId,
+            product_id: sp?.id,
+            type: 'simple'
+          });
+          if (!isExist) {
+            const variants = sp.variants[0];
+            delete sp?.variants;
+            const payload = {
+              user_id: props?.userId,
+              type: 'simple',
+              product_id: sp?.id,
+              title: sp?.name,
+              sku: sp?.sku,
+              product: { ...sp, ...variants }
+            };
+            preparedProduct.push(payload);
           }
         }
-        preparedProduct.push({
-          user_id: props?.userId,
-          type: 'simple',
-          product_id: sp?.id,
-          title: sp?.name,
-          sku: sp?.sku,
-          product: { ...sp, variants: [] }
-        });
       }
+      console.log('preparedProduct?.length', preparedProduct?.length);
       await productModel.insertMany(preparedProduct);
       if (data?.meta?.pagination?.total_pages > props?.page) {
         productsImport({ ...props, page: props?.page + 1 });

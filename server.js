@@ -6,7 +6,7 @@ import process from 'node:process';
 import { Server } from 'socket.io';
 
 import cedDevServer from './src/app.js';
-// import { dbConnection } from './src/config/dbConnection.js';
+import { dbConnection } from './src/config/dbConnection.js';
 import cronJob from './src/services/cron.js';
 import socket from './src/socket/socket.js';
 import globalError from './src/validations/globalError.js';
@@ -16,7 +16,7 @@ const httpServer = createServer(app);
 dotenv.config();
 
 // database connect
-// dbConnection();
+dbConnection();
 
 // cron job register
 cronJob();

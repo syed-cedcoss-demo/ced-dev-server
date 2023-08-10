@@ -75,3 +75,32 @@
     at listOnTimeout (node:internal/timers:569:17)
     at process.processTimers (node:internal/timers:512:7)
 
+2023-08-10T12:06:42.556Z - error ==> Operation `users.findOne()` buffering timed out after 10000ms, description==>MongooseError: Operation `users.findOne()` buffering timed out after 10000ms
+    at Timeout.<anonymous> (/home/cedcoss/Syed/node/ced-dev-server/node_modules/mongoose/lib/drivers/node-mongodb-native/collection.js:185:23)
+    at listOnTimeout (node:internal/timers:569:17)
+    at process.processTimers (node:internal/timers:512:7)
+
+2023-08-10T13:36:58.396Z - error ==> jwt malformed, description==>JsonWebTokenError: jwt malformed
+    at module.exports [as verify] (/home/cedcoss/Syed/node/ced-dev-server/node_modules/jsonwebtoken/verify.js:70:17)
+    at verifyJWT (file:///home/cedcoss/Syed/node/ced-dev-server/src/services/jwt.js:13:20)
+    at auth (file:///home/cedcoss/Syed/node/ced-dev-server/src/middleware/auth.js:8:27)
+    at Layer.handle [as handle_request] (/home/cedcoss/Syed/node/ced-dev-server/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/cedcoss/Syed/node/ced-dev-server/node_modules/express/lib/router/route.js:144:13)
+    at Route.dispatch (/home/cedcoss/Syed/node/ced-dev-server/node_modules/express/lib/router/route.js:114:3)
+    at Layer.handle [as handle_request] (/home/cedcoss/Syed/node/ced-dev-server/node_modules/express/lib/router/layer.js:95:5)
+    at /home/cedcoss/Syed/node/ced-dev-server/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/cedcoss/Syed/node/ced-dev-server/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/cedcoss/Syed/node/ced-dev-server/node_modules/express/lib/router/index.js:280:10)
+
+2023-08-10T13:37:04.550Z - error ==> jwt malformed, description==>JsonWebTokenError: jwt malformed
+    at module.exports [as verify] (/home/cedcoss/Syed/node/ced-dev-server/node_modules/jsonwebtoken/verify.js:70:17)
+    at verifyJWT (file:///home/cedcoss/Syed/node/ced-dev-server/src/services/jwt.js:13:20)
+    at auth (file:///home/cedcoss/Syed/node/ced-dev-server/src/middleware/auth.js:8:27)
+    at Layer.handle [as handle_request] (/home/cedcoss/Syed/node/ced-dev-server/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/cedcoss/Syed/node/ced-dev-server/node_modules/express/lib/router/route.js:144:13)
+    at Route.dispatch (/home/cedcoss/Syed/node/ced-dev-server/node_modules/express/lib/router/route.js:114:3)
+    at Layer.handle [as handle_request] (/home/cedcoss/Syed/node/ced-dev-server/node_modules/express/lib/router/layer.js:95:5)
+    at /home/cedcoss/Syed/node/ced-dev-server/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/cedcoss/Syed/node/ced-dev-server/node_modules/express/lib/router/index.js:346:12)
+    at next (/home/cedcoss/Syed/node/ced-dev-server/node_modules/express/lib/router/index.js:280:10)
+
