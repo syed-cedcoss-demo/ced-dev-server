@@ -124,7 +124,7 @@ export const watchWebhookProduct = (req, res) => {
   try {
     const data = req?.body;
     if (data?.scope === 'store/product/updated') {
-      console.log(`update webhook trigger for the user ${data?.userId}`);
+      console.log(`update webhook trigger for the user ${req?.userId}`);
       webhookProductUpdated({ userId: req?.userId, productId: data?.data?.id });
     } else if (data?.scope === 'store/product/created') {
       console.log(`create webhook trigger for the user ${data?.userId}`);

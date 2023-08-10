@@ -1,0 +1,22 @@
+2023-08-10T05:43:34.476Z - error ==> Invalid update pipeline operator: "user_id", description==>MongooseError: Invalid update pipeline operator: "user_id"
+    at castPipelineOperator (/home/cedcoss/Syed/node/ced-dev-server/node_modules/mongoose/lib/helpers/query/castUpdate.js:146:9)
+    at castUpdate (/home/cedcoss/Syed/node/ced-dev-server/node_modules/mongoose/lib/helpers/query/castUpdate.js:40:22)
+    at model.Query._castUpdate (/home/cedcoss/Syed/node/ced-dev-server/node_modules/mongoose/lib/query.js:4700:10)
+    at model.Query._updateThunk (/home/cedcoss/Syed/node/ced-dev-server/node_modules/mongoose/lib/query.js:3867:25)
+    at model.Query._updateMany (/home/cedcoss/Syed/node/ced-dev-server/node_modules/mongoose/lib/query.js:3942:23)
+    at model.Query.exec (/home/cedcoss/Syed/node/ced-dev-server/node_modules/mongoose/lib/query.js:4420:28)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async webhookProductUpdated (file:///home/cedcoss/Syed/node/ced-dev-server/src/utils/bigcom-helper.js:218:5)
+
+2023-08-10T06:32:41.211Z - error ==> jwt expired, description==>TokenExpiredError: jwt expired
+    at /home/cedcoss/Syed/node/ced-dev-server/node_modules/jsonwebtoken/verify.js:190:21
+    at getSecret (/home/cedcoss/Syed/node/ced-dev-server/node_modules/jsonwebtoken/verify.js:97:14)
+    at module.exports [as verify] (/home/cedcoss/Syed/node/ced-dev-server/node_modules/jsonwebtoken/verify.js:101:10)
+    at verifyJWT (file:///home/cedcoss/Syed/node/ced-dev-server/src/services/jwt.js:13:20)
+    at auth (file:///home/cedcoss/Syed/node/ced-dev-server/src/middleware/auth.js:8:27)
+    at Layer.handle [as handle_request] (/home/cedcoss/Syed/node/ced-dev-server/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/cedcoss/Syed/node/ced-dev-server/node_modules/express/lib/router/route.js:144:13)
+    at Route.dispatch (/home/cedcoss/Syed/node/ced-dev-server/node_modules/express/lib/router/route.js:114:3)
+    at Layer.handle [as handle_request] (/home/cedcoss/Syed/node/ced-dev-server/node_modules/express/lib/router/layer.js:95:5)
+    at /home/cedcoss/Syed/node/ced-dev-server/node_modules/express/lib/router/index.js:284:15
+

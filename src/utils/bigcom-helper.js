@@ -32,7 +32,6 @@ export const productsImport = async (props) => {
             });
           }
         }
-
         preparedProduct.push({
           user_id: props?.userId,
           type: 'simple',
@@ -184,7 +183,6 @@ const webhooks = async (props) => {
 
 // PRODUCT UPDATED ON BIGCOMMERCE STORE
 export const webhookProductUpdated = async (props) => {
-  console.log('props', props);
   try {
     const user = await userModel.findOne({ _id: props?.userId });
     const credential = user?.connected_platform?.find((el) => el?.platform === 'bigcommerce');
@@ -193,33 +191,33 @@ export const webhookProductUpdated = async (props) => {
       accessToken: credential?.access_token,
       url: `v3/catalog/products/${props?.productId}?include=variants`
     });
-    const preparedProduct = [];
-
     if (res?.data?.variants?.length > 0) {
-      for (const vp of res?.data?.variants) {
-        preparedProduct.push({
+      for await (const vp of res?.data?.variants) {
+        const payload = {
           user_id: props?.userId,
           type: 'variant',
           product_id: vp?.product_id,
           title: vp?.name,
           sku: vp?.sku,
           product: vp
-        });
+        };
+        await productModel.updateOne(
+          { user_id: props?.userId, product_id: vp?.product_id, type: 'variant' },
+          { $set: payload }
+        );
       }
     }
-    preparedProduct.push({
+    const payload = {
       user_id: props?.userId,
       type: 'simple',
       product_id: res?.data?.id,
       title: res?.data?.name,
       sku: res?.data?.sku,
       product: { ...res?.data, variants: [] }
-    });
-    await productModel.updateMany(
-      {
-        $and: [{ user_id: props?.userId }, { product_id: props?.productId }]
-      },
-      preparedProduct
+    };
+    await productModel.updateOne(
+      { user_id: props?.userId, product_id: res?.data?.id, type: 'simple' },
+      { $set: payload }
     );
   } catch (error) {
     appError(error);
