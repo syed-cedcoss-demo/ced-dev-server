@@ -8,6 +8,9 @@ const productSchema = new Schema(
     type: {
       type: String
     },
+    platform: {
+      type: String
+    },
     product_id: {
       type: String
     },

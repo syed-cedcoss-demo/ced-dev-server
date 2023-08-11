@@ -99,9 +99,9 @@ export const test = (id) => {
 
   const config = {
     method: 'post',
-    url: 'https://api.bigcommerce.com/stores/hmvwtlusgp/v3/catalog/products',
+    url: 'https://api.bigcommerce.com/stores/ifltk7bgy3/v3/catalog/products',
     headers: {
-      'X-Auth-Token': 'jd9u7yue7vy9oj2buv1w8bmf0xcu638',
+      'X-Auth-Token': 'mshzfukxwgguvvhzg6ccbohoq7bai4g',
       'Content-Type': 'application/json'
     },
     data
@@ -110,8 +110,10 @@ export const test = (id) => {
   axios(config)
     .then(function (response) {
       console.log('product created', id);
+      test(id + 1);
     })
     .catch(function (error) {
       console.log(error?.message, id);
+      test(id);
     });
 };
