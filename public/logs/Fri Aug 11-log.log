@@ -1,0 +1,8 @@
+2023-08-11T05:35:44.337Z - error ==> undefined is not a function, description==>TypeError: undefined is not a function
+    at webhookProductUpdated (file:///home/cedcoss/Syed/node/ced-dev-server/src/utils/bigcom-helper.js:234:33)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+
+2023-08-11T05:42:16.664Z - error ==> undefined is not a function, description==>TypeError: undefined is not a function
+    at webhookProductUpdated (file:///home/cedcoss/Syed/node/ced-dev-server/src/utils/bigcom-helper.js:235:33)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+

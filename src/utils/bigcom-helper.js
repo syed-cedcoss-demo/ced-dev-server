@@ -19,8 +19,8 @@ export const productsImport = async (props) => {
     const preparedProduct = [];
     if (data?.data?.length > 0) {
       for await (const sp of data?.data) {
+        // checking product have variants or not
         if (sp?.variants?.length > 1) {
-          console.log('variants', sp?.variants?.length);
           for await (const vp of sp?.variants) {
             const payload = {
               user_id: props?.userId,
@@ -38,6 +38,25 @@ export const productsImport = async (props) => {
             if (!isExist) {
               preparedProduct.push(payload);
             }
+          }
+          // save parent product with type simple
+          const isExist = await productModel.findOne({
+            user_id: props?.userId,
+            product_id: sp?.id,
+            type: 'simple'
+          });
+          if (!isExist) {
+            const variants = sp.variants[0];
+            delete sp?.variants;
+            const payload = {
+              user_id: props?.userId,
+              type: 'simple',
+              product_id: sp?.id,
+              title: sp?.name,
+              sku: sp?.sku,
+              product: { ...sp, ...variants }
+            };
+            preparedProduct.push(payload);
           }
         } else {
           const isExist = await productModel.findOne({
@@ -200,9 +219,10 @@ const webhooks = async (props) => {
   }
 };
 
-// PRODUCT UPDATED ON BIGCOMMERCE STORE
+// PRODUCT UPDATED ON BIG-COMMERCE STORE
 export const webhookProductUpdated = async (props) => {
   try {
+    console.log('product-updated-webhook: ', props);
     const user = await userModel.findOne({ _id: props?.userId });
     const credential = user?.connected_platform?.find((el) => el?.platform === 'bigcommerce');
     const res = await getCall({
@@ -210,34 +230,40 @@ export const webhookProductUpdated = async (props) => {
       accessToken: credential?.access_token,
       url: `v3/catalog/products/${props?.productId}?include=variants`
     });
-    if (res?.data?.variants?.length > 0) {
-      for await (const vp of res?.data?.variants) {
+
+    if (res?.data?.id) {
+      if (res?.data?.variants?.length > 1) {
+        for await (const vp of res?.data?.variants) {
+          const payload = {
+            user_id: props?.userId,
+            type: 'variant',
+            product_id: vp?.product_id,
+            title: vp?.name,
+            sku: vp?.sku,
+            product: vp
+          };
+          await productModel.updateOne(
+            { user_id: props?.userId, product_id: vp?.product_id, type: 'variant' },
+            { $set: payload }
+          );
+        }
+      } else {
+        const variants = res?.data.variants[0];
+        delete res?.data?.variants;
         const payload = {
           user_id: props?.userId,
-          type: 'variant',
-          product_id: vp?.product_id,
-          title: vp?.name,
-          sku: vp?.sku,
-          product: vp
+          type: 'simple',
+          product_id: res?.data?.id,
+          title: res?.data?.name,
+          sku: res?.data?.sku,
+          product: { ...res?.data, ...variants }
         };
         await productModel.updateOne(
-          { user_id: props?.userId, product_id: vp?.product_id, type: 'variant' },
+          { user_id: props?.userId, product_id: res?.data?.id, type: 'simple' },
           { $set: payload }
         );
       }
     }
-    const payload = {
-      user_id: props?.userId,
-      type: 'simple',
-      product_id: res?.data?.id,
-      title: res?.data?.name,
-      sku: res?.data?.sku,
-      product: { ...res?.data, variants: [] }
-    };
-    await productModel.updateOne(
-      { user_id: props?.userId, product_id: res?.data?.id, type: 'simple' },
-      { $set: payload }
-    );
   } catch (error) {
     appError(error);
   }
