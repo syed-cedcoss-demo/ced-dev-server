@@ -5,6 +5,7 @@ import {
   createWebhooks,
   productsImport,
   webhookProductCreated,
+  webhookProductDeleted,
   webhookProductUpdated
 } from '../utils/bigcom-helper.js';
 import appError from '../validations/appError.js';
@@ -127,6 +128,8 @@ export const watchWebhookProduct = (req, res) => {
       webhookProductUpdated({ userId: req?.userId, productId: data?.data?.id });
     } else if (data?.scope === 'store/product/created') {
       webhookProductCreated({ userId: req?.userId, productId: data?.data?.id });
+    } else if (data?.scope === 'store/product/deleted') {
+      webhookProductDeleted({ userId: req?.userId, productId: data?.data?.id });
     }
     res.status(200).send('ok');
   } catch (error) {

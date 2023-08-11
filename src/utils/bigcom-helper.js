@@ -272,6 +272,7 @@ export const webhookProductUpdated = async (props) => {
 // PRODUCT CREATED ON BIG-COMMERCE STORE
 export const webhookProductCreated = async (props) => {
   try {
+    console.log('product-created-webhook: ', props);
     const user = await userModel.findOne({ _id: props?.userId });
     const credential = user?.connected_platform?.find((el) => el?.platform === 'bigcommerce');
     const res = await getCall({
@@ -302,6 +303,20 @@ export const webhookProductCreated = async (props) => {
       product: { ...res?.data, variants: [] }
     });
     await productModel.create(preparedProduct);
+  } catch (error) {
+    appError(error);
+  }
+};
+
+// PRODUCT DELETED ON BIG-COMMERCE STORE
+
+export const webhookProductDeleted = async (props) => {
+  try {
+    console.log('product-deleted-webhook: ', props);
+    await productModel.deleteMany({
+      user_id: props?.userId,
+      product_id: props?.productId
+    });
   } catch (error) {
     appError(error);
   }
