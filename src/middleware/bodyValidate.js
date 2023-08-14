@@ -89,6 +89,13 @@ export const bigcomConnectValid = async (req, res, next) => {
       });
     }
 
+    // check if the given credentials are valid
+    await getCall({
+      storeHash,
+      accessToken,
+      url: 'v3/catalog/products?page=1&limit=1'
+    });
+
     // CHECK THE STORE IS ALREADY CONNECTED WITH ANOTHER ACCOUNT
     const isStoreConnected = await userModel.findOne(
       {
