@@ -124,6 +124,7 @@ export const importer = async (req, res) => {
 export const watchWebhookProduct = (req, res) => {
   try {
     const data = req?.body;
+    console.log('req.body', data);
     if (data?.scope === 'store/product/updated') {
       webhookProductUpdated({ userId: req?.userId, productId: data?.data?.id });
     } else if (data?.scope === 'store/product/created') {
@@ -140,7 +141,6 @@ export const watchWebhookProduct = (req, res) => {
 // WATCH BIGCOMMERCE ORDER  WEBHOOKS
 export const watchWebhookOrder = async (req, res) => {
   try {
-    console.log('req.headers', req.headers);
     console.log('req.body', req.body);
     res.status(200).send('ok');
   } catch (error) {
