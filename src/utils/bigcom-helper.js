@@ -18,7 +18,7 @@ export const productsImport = async (props) => {
 
     const preparedProduct = [];
     if (data?.data?.length > 0) {
-      for await (const sp of data?.data) {
+      for await (const sp of data.data) {
         // checking product have variants or not
         if (sp?.variants?.length > 1) {
           for await (const vp of sp?.variants) {

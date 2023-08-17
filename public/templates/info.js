@@ -8,7 +8,7 @@ export const serverStatus = () => {
          name="viewport"
          content="width=device-width, initial-scale=1.0"
          />
-      <title>Document</title>
+      <title>server status</title>
       <style>
          .info {
             font-size: 50px;

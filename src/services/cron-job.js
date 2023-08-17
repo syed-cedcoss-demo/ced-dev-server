@@ -1,7 +1,6 @@
+import Cronitor from 'cronitor';
 import cron from 'node-cron';
 import userModel from '../models/userModel.js';
-// import { test } from '../utils/test.js';
-import Cronitor from 'cronitor';
 import appError from '../validations/appError.js';
 const cronitor = new Cronitor('638dd12afd754356ac399427569b0993');
 
@@ -18,13 +17,11 @@ const otpReset = async () => {
 };
 
 // RUN EVERY 5 MINUTES ONLY ON FIRST INSTANCE NODEJS CLUSTER
-const dbTask = cron.schedule('* 5 * * *', () => {
-  console.log('running a task every minute');
+const dbTask = cron.schedule('5 * * * *', () => {
   otpReset();
 });
 
 dbTask.start();
 
 // create demo product
-
-// test(1);
+// createDemoProducts(1300);

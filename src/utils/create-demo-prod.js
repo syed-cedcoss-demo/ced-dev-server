@@ -1,9 +1,9 @@
 import axios from 'axios';
-export const test = (id) => {
+export const createDemoProducts = (id) => {
   const data = JSON.stringify({
-    name: `iPhone-${id}`,
+    name: `Samsung pad 9a-${id}`,
     type: 'physical',
-    sku: `iPhone-${id}`,
+    sku: `Samsung pad 9a-${id}`,
     description:
       '<p><span>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel metus ac est egestas porta sed quis erat. Integer id nulla massa. Proin vitae enim nisi. Praesent non dignissim nulla. Nulla mattis id massa ac pharetra. Mauris et nisi in dolor aliquam sodales. Aliquam dui nisl, dictum quis leo sit amet, rutrum volutpat metus. Curabitur libero nunc, interdum ac libero non, tristique porttitor metus. Ut non dignissim lorem, in vestibulum leo. Vivamus sodales quis turpis eget.</span></p>',
     weight: 1,
@@ -69,11 +69,11 @@ export const test = (id) => {
     ],
     images: [
       {
-        image_file: 'https://dummyimage.com/400x400/ddd/fff?text=No-Image',
+        image_file: 'https://picsum.photos/400',
         is_thumbnail: true,
         sort_order: -2147483648,
         description: 'string',
-        image_url: 'https://dummyimage.com/400x400/ddd/fff?text=No-Image',
+        image_url: 'https://picsum.photos/400',
         id: 0,
         product_id: 2,
         url_zoom: 'string',
@@ -99,9 +99,9 @@ export const test = (id) => {
 
   const config = {
     method: 'post',
-    url: 'https://api.bigcommerce.com/stores/ifltk7bgy3/v3/catalog/products',
+    url: 'https://api.bigcommerce.com/stores/v9fl2aykvn/v3/catalog/products',
     headers: {
-      'X-Auth-Token': 'mshzfukxwgguvvhzg6ccbohoq7bai4g',
+      'X-Auth-Token': 'trvvrao8t89gsfwu76v1gmp1b974k4z',
       'Content-Type': 'application/json'
     },
     data
@@ -110,10 +110,10 @@ export const test = (id) => {
   axios(config)
     .then(function (response) {
       console.log('product created', id);
-      test(id + 1);
+      createDemoProducts(id + 1);
     })
     .catch(function (error) {
       console.log(error?.message, id);
-      test(id);
+      createDemoProducts(id);
     });
 };

@@ -34,7 +34,11 @@ cedDevServer(app);
 
 const port = process.env.PORT ?? 3002;
 const server = httpServer.listen(port, () => {
-  console.log(chalk.bgYellowBright.bold(`server is up and running on post ${port}`));
+  console.log(
+    chalk.bgYellowBright.bold(
+      `server started -  \n port: ${port} \n time: ${new Date().toString()}`
+    )
+  );
 });
 
 // global error handler
