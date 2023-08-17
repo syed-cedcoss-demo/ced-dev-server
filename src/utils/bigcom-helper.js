@@ -1,4 +1,5 @@
 import notificationModel from '../models/notificationModel.js';
+import orderModel from '../models/orderModel.js';
 import productModel from '../models/productModel.js';
 import queueProcessModel from '../models/queueProcessModel.js';
 import userModel from '../models/userModel.js';
@@ -283,7 +284,7 @@ export const webhookProductCreated = async (props) => {
     const preparedProduct = [];
 
     if (res?.data?.variants?.length > 0) {
-      for (const vp of res?.data?.variants) {
+      for (const vp of res.data.variants) {
         preparedProduct.push({
           user_id: props?.userId,
           type: 'variant',
@@ -309,7 +310,6 @@ export const webhookProductCreated = async (props) => {
 };
 
 // PRODUCT DELETED ON BIG-COMMERCE STORE
-
 export const webhookProductDeleted = async (props) => {
   try {
     console.log('product-deleted-webhook: ', props);
@@ -317,6 +317,60 @@ export const webhookProductDeleted = async (props) => {
       user_id: props?.userId,
       product_id: props?.productId
     });
+  } catch (error) {
+    appError(error);
+  }
+};
+
+// ORDER CREATED ON BIG-COMMERCE STORE
+export const webhookOrderCreated = async (props) => {
+  try {
+    const user = await userModel.findOne({ _id: props?.userId });
+    const credential = user?.connected_platform?.find((el) => el?.platform === 'bigcommerce');
+    const res = await getCall({
+      storeHash: credential?.store_hash,
+      accessToken: credential?.access_token,
+      url: `v2/orders/${props?.orderId}`
+    });
+    if (res.id) {
+      const payload = {
+        user_id: props?.userId,
+        order_id: res?.id,
+        order_status: res?.status,
+        platform: 'bigcommerce',
+        order: res
+      };
+      await orderModel.create(payload);
+    }
+  } catch (error) {
+    appError(error);
+  }
+};
+
+// ORDER CREATED ON BIG-COMMERCE STORE
+export const webhookOrderUpdated = async (props) => {
+  try {
+    console.log('order-webhook-trigger: ', props);
+    const user = await userModel.findOne({ _id: props?.userId });
+    const credential = user?.connected_platform?.find((el) => el?.platform === 'bigcommerce');
+    const res = await getCall({
+      storeHash: credential?.store_hash,
+      accessToken: credential?.access_token,
+      url: `v2/orders/${props?.orderId}`
+    });
+    if (res.id) {
+      const payload = {
+        user_id: props?.userId,
+        order_id: res?.id,
+        order_status: res?.status,
+        platform: 'bigcommerce',
+        order: res
+      };
+      await orderModel.updateOne(
+        { user_id: props?.userId, order_id: res?.id, platform: 'bigcommerce' },
+        { $set: payload }
+      );
+    }
   } catch (error) {
     appError(error);
   }
