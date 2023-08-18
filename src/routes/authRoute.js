@@ -1,5 +1,5 @@
 import express from 'express';
-import passport from 'passport';
+
 import {
   forgetPassword,
   login,
@@ -16,17 +16,5 @@ router.get('/verify', verify);
 router.post('/login', loginValidate, login);
 router.post('/forget-password', forgetPassword);
 router.post('/reset-password', resetPassword);
-
-// OAUTH ROUTES
-router.get('/google-auth', passport.authenticate('google', { scope: ['profile', 'email'] }));
-
-router.get(
-  '/google-login',
-  passport.authenticate('google', { failureRedirect: '/login' }),
-  function (req, res) {
-    // Successful authentication, redirect home.
-    res.redirect(`${process.env.APP_URL}/login/?token=${req?.user?.token}`);
-  }
-);
 
 export default router;

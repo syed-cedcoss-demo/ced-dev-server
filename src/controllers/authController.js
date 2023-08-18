@@ -1,7 +1,3 @@
-// import chalk from 'chalk';
-import session from 'express-session';
-import passport from 'passport';
-import GoogleStrategy from 'passport-google-oauth20';
 import userModel from '../models/userModel.js';
 import { forgetPassEmail, registrationMail } from '../services/email.js';
 import { hashPassword, verifyPassword } from '../services/hash.js';
@@ -125,49 +121,4 @@ export const resetPassword = async (req, res) => {
   } catch (error) {
     appError(error, res);
   }
-};
-
-export const googleLogin = (app) => {
-  // Configure and use the express-session middleware
-  passport.serializeUser(function (user, done) {
-    done(null, user);
-  });
-  passport.deserializeUser(function (user, done) {
-    done(null, user);
-  });
-  app.use(
-    session({
-      secret: 'complete setup app',
-      resave: false,
-      saveUninitialized: false,
-      cookie: { secure: true }
-    })
-  );
-
-  passport.use(
-    new GoogleStrategy(
-      {
-        clientID: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: 'http://localhost:3002/auth/google-login'
-      },
-      async function (accessToken, refreshToken, profile, cb) {
-        const payload = {
-          email: profile?.emails?.[0]?.value,
-          name: profile?.displayName,
-          profile_pic: profile?.photos?.[0]?.value,
-          is_active: true
-        };
-        const isExist = await userModel.find({ email: { $eq: payload?.email } });
-        let token;
-        if (isExist?.length <= 0) {
-          const user = await userModel.create(payload);
-          token = await signJWT({ id: user?._id });
-        } else {
-          token = await signJWT({ id: isExist?.[0]?._id });
-        }
-        return cb(undefined, { token });
-      }
-    )
-  );
 };

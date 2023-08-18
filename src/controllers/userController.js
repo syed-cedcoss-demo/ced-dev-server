@@ -1,22 +1,5 @@
-import { v2 as cloudinary } from 'cloudinary';
-import multiparty from 'multiparty';
-import util from 'util';
 import userModel from '../models/userModel.js';
 import appError from '../validations/appError.js';
-
-// CLOUDINARY CONFIG
-cloudinary.config({
-  cloud_name: 'di1gp4ac6',
-  api_key: '252421633165296',
-  api_secret: 'Lq_1V8VwTKXsV7_gHSzxKoj5XYQ',
-  secure: true
-});
-cloudinary.uploader.upload = util.promisify(cloudinary.uploader.upload);
-
-// // multiparty
-const form = new multiparty.Form();
-form.setMaxListeners(15);
-// form.parse = util.promisify(form.parse);
 
 // get an user
 export const getUser = async (req, res) => {
@@ -66,28 +49,5 @@ export const getAllUser = async (req, res) => {
     });
   } catch (error) {
     appError(error, res);
-  }
-};
-
-// update user profile
-export const updateProfile = async (req, res) => {
-  try {
-    form.parse(req, (err, fields, files) => {
-      if (err) {
-        return res.status(500).json({ error: 'Error processing the file upload' });
-      }
-      console.log('files', files);
-      console.log('fields', fields);
-    });
-    // console.log('req.file', req.file);
-    // const response = await cloudinary.uploader.upload(req.file.buffer, {
-    //   folder: 'ced_dev_server_img',
-    //   use_filename: true
-    // });
-    // console.log('response', response);
-    res.status(200).send('ok');
-  } catch (error) {
-    console.log('error', error);
-    res.status(500).send('error');
   }
 };

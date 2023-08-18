@@ -1,10 +1,7 @@
-import Cronitor from 'cronitor';
 import cron from 'node-cron';
 import userModel from '../models/userModel.js';
 import appError from '../validations/appError.js';
-const cronitor = new Cronitor('638dd12afd754356ac399427569b0993');
 
-cronitor.wraps(cron);
 // OTP RESET AFTER EVERY 10 MIN
 const otpReset = async () => {
   try {
