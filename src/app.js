@@ -4,9 +4,8 @@ import express from 'express';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
-import security from './config/security.js';
-// import { googleLogin } from './controllers/authController.js';
 import { serverStatus } from '../public/templates/info.js';
+import security from './config/security.js';
 import authRoute from './routes/authRoute.js';
 import bigcomRoute from './routes/bigcomRoute.js';
 import userRoute from './routes/userRoute.js';
@@ -19,14 +18,11 @@ const cedDevServer = (app) => {
   app.use(express.urlencoded({ extended: true, limit: '1024px' }));
   app.use(cors());
   app.use(compression());
-  app.set('trust proxy', true);
 
   // PRODUCTION ONLY CODE
   if (process.env.NODE_ENV === 'production') {
     security(app);
   }
-  // OAUTH SETUP
-  // googleLogin(app);
 
   // PUBLIC PATH
   const basePath = __dirname?.split('/src')[0];

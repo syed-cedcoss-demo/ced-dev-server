@@ -3,9 +3,11 @@ import orderModel from '../models/orderModel.js';
 import productModel from '../models/productModel.js';
 import queueProcessModel from '../models/queueProcessModel.js';
 import userModel from '../models/userModel.js';
+import BigcomImportEvent from '../services/app-events.js';
 import { noExpireSignJWT } from '../services/jwt.js';
 import { getCall, postCall } from '../services/request.js';
 import appError from '../validations/appError.js';
+const events = new BigcomImportEvent();
 
 export const productsImport = async (props) => {
   try {
@@ -16,13 +18,13 @@ export const productsImport = async (props) => {
     });
     const per = (props?.page / data?.meta?.pagination?.total_pages) * 100;
     console.log(`${per.toFixed(2)}% product imported`);
-
+    events.sendSignal('importProgress', { per: per.toFixed(2), userId: props?.userId });
     const preparedProduct = [];
     if (data?.data?.length > 0) {
       for await (const sp of data.data) {
         // checking product have variants or not
         if (sp?.variants?.length > 1) {
-          for await (const vp of sp?.variants) {
+          for await (const vp of sp.variants) {
             const payload = {
               user_id: props?.userId,
               type: 'variant',
