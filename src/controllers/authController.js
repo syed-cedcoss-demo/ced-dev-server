@@ -91,11 +91,16 @@ export const forgetPassword = async (req, res) => {
       await forgetPassEmail({
         username: user?.username,
         email,
-        url: `${process.env.SERVER_URL}/api/auth/reset-password?token=${token}` // verification url
+        url: `${process.env.SERVER_URL}/auth/reset-password?token=${token}`
       });
-      res.status(200).send({ success: true, msg: 'Email successfully sent, check your mail' });
+      res
+        .status(200)
+        .send({
+          success: true,
+          msg: 'Email successfully sent, check your inbox or spam folder'
+        });
     } else {
-      res.status(404).send({ success: false, msg: 'Email mot found' });
+      res.status(404).send({ success: false, msg: 'Email not found' });
     }
   } catch (error) {
     appError(error, res);

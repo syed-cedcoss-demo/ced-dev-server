@@ -1,7 +1,10 @@
 import express from 'express';
 import {
   connectPlatform,
+  getAProduct,
+  getAllProduct,
   importer,
+  incomingWebhooks,
   watchWebhookOrder,
   watchWebhookProduct
 } from '../controllers/bigcomController.js';
@@ -13,7 +16,11 @@ const router = express.Router();
 router.post('/connect-platform', auth, bigcomConnectValid, connectPlatform);
 router.get('/product-import', auth, importer);
 
-// WEBHOOKs ROUTES
+// PRODUCT ROUTES
+router.get('/get-product', auth, getAProduct);
+router.get('/get-all-product', auth, getAllProduct);
+// WEBHOOKs
+router.post('/incoming-webhooks', incomingWebhooks);
 router.post('/order-webhooks', webhookAuth, watchWebhookOrder);
 router.post('/product-webhooks', webhookAuth, watchWebhookProduct);
 

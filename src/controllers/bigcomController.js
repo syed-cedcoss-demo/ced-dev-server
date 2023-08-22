@@ -1,5 +1,7 @@
+import productModel from '../models/productModel.js';
 import queueProcessModel from '../models/queueProcessModel.js';
 import userModel from '../models/userModel.js';
+import webhooksModel from '../models/webhooks.js';
 
 import {
   createWebhooks,
@@ -149,6 +151,79 @@ export const watchWebhookOrder = async (req, res) => {
       webhookOrderUpdated({ userId: req?.userId, orderId: data?.data?.id });
     }
     res.status(200).send('ok');
+  } catch (error) {
+    appError(error, res);
+  }
+};
+
+// INCOMING WEBHOOKS
+export const incomingWebhooks = async (req, res) => {
+  try {
+    const data = req?.body;
+    const payload = {
+      user_id: req?.userId,
+      id: data?.data?.id,
+      scope: data?.scope,
+      platform: 'bigcommerce'
+    };
+    const result = await webhooksModel.create(payload);
+    console.log('result', result);
+    res.status(200).send('ok');
+  } catch (error) {
+    appError(error, res);
+  }
+};
+
+// GET A PRODUCT
+export const getAProduct = async (req, res) => {
+  try {
+    console.log('userId', req?.userId);
+    const product = await productModel.findOne({
+      user_id: req?.userId,
+      product_id: req.query.product_id
+    });
+    if (product?.length <= 0) {
+      return res.status(404).send({
+        success: false,
+        msg: 'no product found',
+        data: {}
+      });
+    }
+    res.status(200).send({
+      success: true,
+      msg: 'success',
+      data: { rows: product, meta: {} }
+    });
+  } catch (error) {
+    appError(error, res);
+  }
+};
+
+// GET ALL PRODUCT
+export const getAllProduct = async (req, res) => {
+  try {
+    const page = req.query.page ?? 1;
+    let limit = req.query.limit ?? 10;
+    limit = limit > 100 ? 100 : limit;
+    const skip = (page - 1) * limit;
+    const product = productModel.find({}).skip(skip).limit(limit);
+    const count = productModel.countDocuments({});
+    const [productVal, countVal] = await Promise.allSettled([product, count]);
+    if (productVal?.length <= 0) {
+      return res.status(404).send({
+        success: false,
+        msg: 'User not found',
+        data: {}
+      });
+    }
+    res.status(200).send({
+      success: true,
+      msg: 'success',
+      data: {
+        rows: productVal?.value,
+        page_context: { page, per_page: limit, has_more_page: countVal?.value > page * limit }
+      }
+    });
   } catch (error) {
     appError(error, res);
   }

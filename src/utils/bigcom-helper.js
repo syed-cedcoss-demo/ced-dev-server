@@ -3,11 +3,9 @@ import orderModel from '../models/orderModel.js';
 import productModel from '../models/productModel.js';
 import queueProcessModel from '../models/queueProcessModel.js';
 import userModel from '../models/userModel.js';
-import BigcomImportEvent from '../services/app-events.js';
 import { noExpireSignJWT } from '../services/jwt.js';
 import { getCall, postCall } from '../services/request.js';
 import appError from '../validations/appError.js';
-const events = new BigcomImportEvent();
 
 export const productsImport = async (props) => {
   try {
@@ -18,7 +16,6 @@ export const productsImport = async (props) => {
     });
     const per = (props?.page / data?.meta?.pagination?.total_pages) * 100;
     console.log(`${per.toFixed(2)}% product imported`);
-    events.sendSignal('importProgress', { per: per.toFixed(2), userId: props?.userId });
     const preparedProduct = [];
     if (data?.data?.length > 0) {
       for await (const sp of data.data) {
@@ -121,7 +118,7 @@ export const createWebhooks = async (props) => {
     message: 'create product webhook created',
     body: {
       scope: 'store/product/created',
-      destination: `${process.env.SERVER_URL}/big-com/product-webhooks`,
+      destination: `${process.env.SERVER_URL}/big-com/incoming-webhooks`,
       is_active: true,
       headers: {
         user_token: token
@@ -133,7 +130,7 @@ export const createWebhooks = async (props) => {
     message: 'delete product webhook created',
     body: {
       scope: 'store/product/deleted',
-      destination: `${process.env.SERVER_URL}/big-com/product-webhooks`,
+      destination: `${process.env.SERVER_URL}/big-com/incoming-webhooks`,
       is_active: true,
       headers: {
         user_token: token
@@ -145,7 +142,7 @@ export const createWebhooks = async (props) => {
     message: 'update product webhook created',
     body: {
       scope: 'store/product/updated',
-      destination: `${process.env.SERVER_URL}/big-com/product-webhooks`,
+      destination: `${process.env.SERVER_URL}/big-com/incoming-webhooks`,
       is_active: true,
       headers: {
         user_token: token
@@ -159,7 +156,7 @@ export const createWebhooks = async (props) => {
     message: 'create order webhook created',
     body: {
       scope: 'store/order/created',
-      destination: `${process.env.SERVER_URL}/big-com/order-webhooks`,
+      destination: `${process.env.SERVER_URL}/big-com/incoming-webhooks`,
       is_active: true,
       headers: {
         user_token: token
@@ -171,7 +168,7 @@ export const createWebhooks = async (props) => {
     message: 'create order webhook updated',
     body: {
       scope: 'store/order/updated',
-      destination: `${process.env.SERVER_URL}/big-com/order-webhooks`,
+      destination: `${process.env.SERVER_URL}/big-com/incoming-webhooks`,
       is_active: true,
       headers: {
         user_token: token
@@ -183,7 +180,7 @@ export const createWebhooks = async (props) => {
     message: 'create order webhook archived',
     body: {
       scope: 'store/order/archived',
-      destination: `${process.env.SERVER_URL}/big-com/order-webhooks`,
+      destination: `${process.env.SERVER_URL}/big-com/incoming-webhooks`,
       is_active: true,
       headers: {
         user_token: token
@@ -209,7 +206,7 @@ const webhooks = async (props) => {
       await notificationModel.create({
         user_id: props?.userId,
         message: props?.message,
-        type: 'success'
+        type: 'failed'
       });
     }
   } catch (error) {

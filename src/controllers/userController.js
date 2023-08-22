@@ -4,7 +4,7 @@ import appError from '../validations/appError.js';
 // get an user
 export const getUser = async (req, res) => {
   try {
-    const user = await userModel.findOne({ _id: req?.userId });
+    const user = await userModel.findOne({ _id: req?.userId }, { connected_platform: 0 });
     if (user?.length <= 0) {
       return res.status(404).send({
         success: false,
@@ -28,8 +28,7 @@ export const getAllUser = async (req, res) => {
     let limit = req.query.limit ?? 10;
     limit = limit > 100 ? 100 : limit;
     const skip = (page - 1) * limit;
-
-    const user = userModel.find({}).skip(skip).limit(limit);
+    const user = userModel.find({}, { connected_platform: 0 }).skip(skip).limit(limit);
     const count = userModel.countDocuments({});
     const [userVal, countVal] = await Promise.allSettled([user, count]);
     if (user?.length <= 0) {
