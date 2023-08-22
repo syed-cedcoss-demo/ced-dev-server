@@ -20,7 +20,7 @@ router.get('/product-import', auth, importer);
 router.get('/get-product', auth, getAProduct);
 router.get('/get-all-product', auth, getAllProduct);
 // WEBHOOKs
-router.post('/incoming-webhooks', incomingWebhooks);
+router.post('/incoming-webhooks', webhookAuth, incomingWebhooks);
 router.post('/order-webhooks', webhookAuth, watchWebhookOrder);
 router.post('/product-webhooks', webhookAuth, watchWebhookProduct);
 

@@ -167,8 +167,16 @@ export const incomingWebhooks = async (req, res) => {
       platform: 'bigcommerce'
     };
     const result = await webhooksModel.create(payload);
-    console.log('result', result);
-    res.status(200).send('ok');
+    if (result?.id) res.status(200).send('ok');
+    else {
+      appError(
+        {
+          message: 'webhook not saved in our db due to some error:',
+          stack: `user_id- ${req.userId} -, ${data}`
+        },
+        res
+      );
+    }
   } catch (error) {
     appError(error, res);
   }
