@@ -58,5 +58,12 @@
    },
    "[jsonc]": {
       "editor.defaultFormatter": "vscode.json-language-features"
+   },
+   "emojisense.languages": {
+      "javascript": true,
+      "plaintext": {
+         "emojiDecoratorsEnabled": true
+      },
+      "scminput": true // language used in the source control commit message box
    }
 }

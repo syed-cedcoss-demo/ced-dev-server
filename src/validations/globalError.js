@@ -22,7 +22,7 @@ const globalError = (server) => {
     server.close(() => {
       console.log('💥 Process terminated!');
       serverDown();
-      // this is only for render host
+      // this is only for render host :fire:
       reActive();
     });
   });

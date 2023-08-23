@@ -18,6 +18,7 @@ const cedDevServer = (app) => {
   app.use(express.urlencoded({ extended: true, limit: '1024px' }));
   app.use(cors());
   app.use(compression());
+  app.set('trust proxy', 1);
 
   // PRODUCTION ONLY CODE
   if (process.env.NODE_ENV === 'production') {
