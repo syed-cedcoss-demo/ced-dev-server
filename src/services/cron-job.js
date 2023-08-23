@@ -1,6 +1,7 @@
 import cron from 'node-cron';
 import userModel from '../models/userModel.js';
 import appError from '../validations/appError.js';
+import { reActive } from './request.js';
 
 // OTP RESET AFTER EVERY 10 MIN
 const otpReset = async () => {
@@ -16,6 +17,7 @@ const otpReset = async () => {
 // RUN EVERY 5 MINUTES ONLY ON FIRST INSTANCE NODEJS CLUSTER
 const dbTask = cron.schedule('5 * * * *', () => {
   otpReset();
+  reActive();
 });
 
 dbTask.start();
