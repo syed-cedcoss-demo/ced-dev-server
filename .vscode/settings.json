@@ -3,7 +3,7 @@
    "workbench.iconTheme": "material-icon-theme",
    "workbench.colorTheme": "GitHub Dark Default",
    "editor.formatOnSave": true,
-   "editor.fontSize": 14,
+   "editor.fontSize": 13,
    "window.zoomLevel": 0,
    "editor.codeActionsOnSave": {
       "source.fixAll": true,
