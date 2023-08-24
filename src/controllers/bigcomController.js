@@ -1,7 +1,7 @@
 import productModel from '../models/productModel.js';
 import queueProcessModel from '../models/queueProcessModel.js';
 import userModel from '../models/userModel.js';
-import webhooksModel from '../models/webhooks.js';
+import webhooksModel from '../models/webhookModel.js';
 
 import {
   createWebhooks,

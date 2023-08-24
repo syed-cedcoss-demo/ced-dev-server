@@ -7,10 +7,9 @@ import { Server } from 'socket.io';
 
 import cedDevServer from './src/app.js';
 import { dbConnection } from './src/config/dbConnection.js';
+import startServices from './src/services/startServices.js';
 import socket from './src/socket/socket.js';
 import globalError from './src/validations/globalError.js';
-
-// eslint-disable-next-line no-unused-vars
 
 const app = express();
 const httpServer = createServer(app);
@@ -30,6 +29,9 @@ socket(io);
 
 // our ced-dev-server
 cedDevServer(app);
+
+// basic start service
+startServices();
 
 const port = process.env.PORT ?? 3002;
 const server = httpServer.listen(port, () => {
