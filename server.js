@@ -11,7 +11,6 @@ import socket from './src/socket/socket.js';
 import globalError from './src/validations/globalError.js';
 
 // eslint-disable-next-line no-unused-vars
-import * as cron from './src/services/cron-job.js';
 
 const app = express();
 const httpServer = createServer(app);

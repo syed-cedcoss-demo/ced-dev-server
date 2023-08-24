@@ -28,7 +28,8 @@ export const productsImport = async (props) => {
               product_id: vp?.product_id,
               title: vp?.name,
               sku: vp?.sku,
-              product: vp
+              product: vp,
+              platform: 'bigcommerce'
             };
             const isExist = await productModel.findOne({
               user_id: props?.userId,
@@ -54,6 +55,7 @@ export const productsImport = async (props) => {
               product_id: sp?.id,
               title: sp?.name,
               sku: sp?.sku,
+              platform: 'bigcommerce',
               product: { ...sp, ...variants }
             };
             preparedProduct.push(payload);
@@ -73,6 +75,7 @@ export const productsImport = async (props) => {
               product_id: sp?.id,
               title: sp?.name,
               sku: sp?.sku,
+              platform: 'bigcommerce',
               product: { ...sp, ...variants }
             };
             preparedProduct.push(payload);
@@ -290,7 +293,8 @@ export const webhookProductCreated = async (props) => {
           product_id: vp?.product_id,
           title: vp?.name,
           sku: vp?.sku,
-          product: vp
+          product: vp,
+          platform: 'bigcommerce'
         });
       }
     }
@@ -300,6 +304,7 @@ export const webhookProductCreated = async (props) => {
       product_id: res?.data?.id,
       title: res?.data?.name,
       sku: res?.data?.sku,
+      platform: 'bigcommerce',
       product: { ...res?.data, variants: [] }
     });
     await productModel.create(preparedProduct);

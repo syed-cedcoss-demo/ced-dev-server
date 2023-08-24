@@ -93,12 +93,10 @@ export const forgetPassword = async (req, res) => {
         email,
         url: `${process.env.SERVER_URL}/auth/reset-password?token=${token}`
       });
-      res
-        .status(200)
-        .send({
-          success: true,
-          msg: 'Email successfully sent, check your inbox or spam folder'
-        });
+      res.status(200).send({
+        success: true,
+        msg: 'Email successfully sent, check your inbox or spam folder'
+      });
     } else {
       res.status(404).send({ success: false, msg: 'Email not found' });
     }

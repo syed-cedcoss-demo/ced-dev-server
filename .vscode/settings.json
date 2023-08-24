@@ -64,6 +64,9 @@
       "plaintext": {
          "emojiDecoratorsEnabled": true
       },
-      "scminput": true // language used in the source control commit message box
-   }
+      "scminput": true
+   },
+   "emmet.includeLanguages": {
+      "ejs": "html",
+   },
 }

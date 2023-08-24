@@ -185,10 +185,10 @@ export const incomingWebhooks = async (req, res) => {
 // GET A PRODUCT
 export const getAProduct = async (req, res) => {
   try {
-    console.log('userId', req?.userId);
     const product = await productModel.findOne({
       user_id: req?.userId,
-      product_id: req.query.product_id
+      product_id: req.query.product_id,
+      platform: 'bigcommerce'
     });
     if (product?.length <= 0) {
       return res.status(404).send({
@@ -211,11 +211,14 @@ export const getAProduct = async (req, res) => {
 export const getAllProduct = async (req, res) => {
   try {
     const page = req.query.page ?? 1;
-    let limit = req.query.limit ?? 10;
+    let limit = req.query.per_page ?? 10;
     limit = limit > 100 ? 100 : limit;
     const skip = (page - 1) * limit;
-    const product = productModel.find({}).skip(skip).limit(limit);
-    const count = productModel.countDocuments({});
+    const product = productModel
+      .find({ user_id: req?.userId, platform: 'bigcommerce' })
+      .skip(skip)
+      .limit(limit);
+    const count = productModel.countDocuments({ user_id: req?.userId });
     const [productVal, countVal] = await Promise.allSettled([product, count]);
     if (productVal?.length <= 0) {
       return res.status(404).send({
