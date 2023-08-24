@@ -3,15 +3,8 @@ import queueProcessModel from '../models/queueProcessModel.js';
 import userModel from '../models/userModel.js';
 import webhooksModel from '../models/webhookModel.js';
 
-import {
-  createWebhooks,
-  productsImport,
-  webhookOrderCreated,
-  webhookOrderUpdated,
-  webhookProductCreated,
-  webhookProductDeleted,
-  webhookProductUpdated
-} from '../utils/bigcom-helper.js';
+import productsImport from '../utils/bigcomProductImport.js';
+import { createWebhooks } from '../utils/bigcomWebhooks.js';
 import appError from '../validations/appError.js';
 
 // BIGCOMMERCE CONNECT SHOP
@@ -119,38 +112,6 @@ export const importer = async (req, res) => {
       msg: 'Product import started',
       data: {}
     });
-  } catch (error) {
-    appError(error, res);
-  }
-};
-
-// WATCH BIGCOMMERCE PRODUCT WEBHOOKS
-export const watchWebhookProduct = (req, res) => {
-  try {
-    const data = req?.body;
-    if (data?.scope === 'store/product/updated') {
-      webhookProductUpdated({ userId: req?.userId, productId: data?.data?.id });
-    } else if (data?.scope === 'store/product/created') {
-      webhookProductCreated({ userId: req?.userId, productId: data?.data?.id });
-    } else if (data?.scope === 'store/product/deleted') {
-      webhookProductDeleted({ userId: req?.userId, productId: data?.data?.id });
-    }
-    res.status(200).send('ok');
-  } catch (error) {
-    appError(error, res);
-  }
-};
-
-// WATCH BIGCOMMERCE ORDER  WEBHOOKS
-export const watchWebhookOrder = async (req, res) => {
-  try {
-    const data = req?.body;
-    if (data?.scope === 'store/order/created') {
-      webhookOrderCreated({ userId: req?.userId, orderId: data?.data?.id });
-    } else if (data?.scope === 'store/order/updated') {
-      webhookOrderUpdated({ userId: req?.userId, orderId: data?.data?.id });
-    }
-    res.status(200).send('ok');
   } catch (error) {
     appError(error, res);
   }

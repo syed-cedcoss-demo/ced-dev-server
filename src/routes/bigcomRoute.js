@@ -4,9 +4,7 @@ import {
   getAProduct,
   getAllProduct,
   importer,
-  incomingWebhooks,
-  watchWebhookOrder,
-  watchWebhookProduct
+  incomingWebhooks
 } from '../controllers/bigcomController.js';
 import { auth, webhookAuth } from '../middleware/auth.js';
 import { bigcomConnectValid } from '../middleware/bodyValidate.js';
@@ -19,9 +17,8 @@ router.get('/product-import', auth, importer);
 // PRODUCT ROUTES
 router.get('/get-product', auth, getAProduct);
 router.get('/get-all-product', auth, getAllProduct);
+
 // WEBHOOKs
 router.post('/incoming-webhooks', webhookAuth, incomingWebhooks);
-router.post('/order-webhooks', webhookAuth, watchWebhookOrder);
-router.post('/product-webhooks', webhookAuth, watchWebhookProduct);
 
 export default router;

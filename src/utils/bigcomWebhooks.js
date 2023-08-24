@@ -1,9 +1,11 @@
 import chalk from 'chalk';
+import notificationModel from '../models/notificationModel.js';
 import orderModel from '../models/orderModel.js';
 import productModel from '../models/productModel.js';
 import userModel from '../models/userModel.js';
 import webhooksModel from '../models/webhookModel.js';
-import { getCall } from '../services/request.js';
+import { noExpireSignJWT } from '../services/jwt.js';
+import { getCall, postCall } from '../services/request.js';
 import appError from '../validations/appError.js';
 
 export const webhooksProcess = async () => {
@@ -195,5 +197,116 @@ const webhookOrderUpdated = async (props) => {
     return false;
   } catch (error) {
     appError(error);
+  }
+};
+
+// ********************** CREATE WEBHOOKS **********************
+export const createWebhooks = async (props) => {
+  const token = await noExpireSignJWT({ userId: props?.userId });
+  // PRODUCTS WEBHOOKS
+  webhooks({
+    ...props,
+    message: 'create product webhook created',
+    body: {
+      scope: 'store/product/created',
+      destination: `${process.env.SERVER_URL}/big-com/incoming-webhooks`,
+      is_active: true,
+      headers: {
+        user_token: token
+      }
+    }
+  });
+  webhooks({
+    ...props,
+    message: 'delete product webhook created',
+    body: {
+      scope: 'store/product/deleted',
+      destination: `${process.env.SERVER_URL}/big-com/incoming-webhooks`,
+      is_active: true,
+      headers: {
+        user_token: token
+      }
+    }
+  });
+  webhooks({
+    ...props,
+    message: 'update product webhook created',
+    body: {
+      scope: 'store/product/updated',
+      destination: `${process.env.SERVER_URL}/big-com/incoming-webhooks`,
+      is_active: true,
+      headers: {
+        user_token: token
+      }
+    }
+  });
+
+  // ORDERS WEBHOOKS
+  webhooks({
+    ...props,
+    message: 'create order webhook created',
+    body: {
+      scope: 'store/order/created',
+      destination: `${process.env.SERVER_URL}/big-com/incoming-webhooks`,
+      is_active: true,
+      headers: {
+        user_token: token
+      }
+    }
+  });
+  webhooks({
+    ...props,
+    message: 'create order webhook updated',
+    body: {
+      scope: 'store/order/updated',
+      destination: `${process.env.SERVER_URL}/big-com/incoming-webhooks`,
+      is_active: true,
+      headers: {
+        user_token: token
+      }
+    }
+  });
+  webhooks({
+    ...props,
+    message: 'create order webhook archived',
+    body: {
+      scope: 'store/order/archived',
+      destination: `${process.env.SERVER_URL}/big-com/incoming-webhooks`,
+      is_active: true,
+      headers: {
+        user_token: token
+      }
+    }
+  });
+};
+
+const webhooks = async (props) => {
+  try {
+    const res = await postCall({
+      storeHash: props.store_hash,
+      accessToken: props.access_token,
+      url: 'v3/hooks',
+      body: props?.body
+    });
+    if (res?.data?.id) {
+      await notificationModel.create({
+        user_id: props?.userId,
+        message: props?.message,
+        type: 'success'
+      });
+    } else {
+      await notificationModel.create({
+        user_id: props?.userId,
+        message: props?.message,
+        type: 'failed'
+      });
+    }
+  } catch (error) {
+    appError(error);
+    await notificationModel.create({
+      user_id: props?.userId,
+      message: error?.message,
+      type: 'error'
+    });
   }
 };
