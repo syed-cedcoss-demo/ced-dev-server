@@ -67,13 +67,21 @@ APP_URL = '';
 
 ```
 
+## Staging URL
+
+[Staging Server URL](https://ced-dev-server.onrender.com/)
+
+## API docs
+
+[view api docs](https://documenter.getpostman.com/view/23714575/2s9Y5WwNWr)
+
 ## Help
 
 - feel free to connect @syedhasnainmehadi@cedcommerce.com
 
 ## Authors
 
-- [@Syed Hasnain Mehadi](https://github.com/hasnain-cedcoss)
+- [Syed Hasnain Mehadi](https://github.com/hasnain-cedcoss)
 
 ## 🔗 Links
 
@@ -82,7 +90,3 @@ APP_URL = '';
 ## License
 
 free to use for educational purpose only.
-
-## staging URL
-
-[@Staging Server URL](https://ced-dev-server.onrender.com/)
