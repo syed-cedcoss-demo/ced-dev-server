@@ -7,7 +7,7 @@
       "exec_mode": "cluster",
       "env": {
         "NODE_ENV": "production",
-        "PORT": "3003"
+        "PORT": "3002"
       }
     },
     {
@@ -16,7 +16,7 @@
       "exec_mode": "fork",
       "env": {
         "NODE_ENV": "production",
-        "PORT": "3003"
+        "PORT": "3002"
       }
     }
   ],
