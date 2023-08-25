@@ -10,7 +10,7 @@ const resetOTP = async () => {
     };
     setInterval(() => {
       recall();
-    }, 1000 * 60 * 5);
+    }, 1000 * 60 * 15);
   } catch (error) {
     appError(error);
   }

@@ -28,7 +28,8 @@ const userSchema = new Schema(
     otp: {
       type: Number,
       default: Math.floor(Math.random() * 10000),
-      select: false
+      select: false,
+      expires: 60 * 5
     },
     connected_platform: {
       type: Array

@@ -5,7 +5,6 @@ import { fileURLToPath } from 'url';
 // Function to log messages to a file
 export const logCreator = (message) => {
   const __dirname = dirname(fileURLToPath(import.meta.url));
-
   let path =
     __dirname.replace('src/validations', 'public/logs/') +
     `${new Date().toString().substring(0, 10)}-log.log`;

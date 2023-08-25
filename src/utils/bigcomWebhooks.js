@@ -8,9 +8,9 @@ import { noExpireSignJWT } from '../services/jwt.js';
 import { getCall, postCall } from '../services/request.js';
 import appError from '../validations/appError.js';
 
-export const webhooksProcess = async () => {
+export const webhooksProcess = async (data) => {
   try {
-    const data = await webhooksModel.findOne({});
+    // const data = await webhooksModel.findOne({});
     let status = false;
     if (data?.scope === 'store/product/updated') {
       status = await webhookProductUpdated({ userId: data?.user_id, productId: data?.id });

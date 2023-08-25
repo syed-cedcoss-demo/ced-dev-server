@@ -1,10 +1,9 @@
 import productModel from '../models/productModel.js';
 import queueProcessModel from '../models/queueProcessModel.js';
 import userModel from '../models/userModel.js';
-import webhooksModel from '../models/webhookModel.js';
 
 import productsImport from '../utils/bigcomProductImport.js';
-import { createWebhooks } from '../utils/bigcomWebhooks.js';
+import { createWebhooks, webhooksProcess } from '../utils/bigcomWebhooks.js';
 import appError from '../validations/appError.js';
 
 // BIGCOMMERCE CONNECT SHOP
@@ -127,9 +126,13 @@ export const incomingWebhooks = async (req, res) => {
       scope: data?.scope,
       platform: 'bigcommerce'
     };
-    const result = await webhooksModel.create(payload);
-    if (result?.id) res.status(200).send('ok');
-    else {
+    webhooksProcess(payload);
+    res.status(200).send('ok');
+
+    /* const result = await webhooksModel.create(payload);
+    if (result?.id) {
+      res.status(200).send('ok');
+    } else {
       appError(
         {
           message: 'webhook not saved in our db due to some error:',
@@ -137,7 +140,7 @@ export const incomingWebhooks = async (req, res) => {
         },
         res
       );
-    }
+    } */
   } catch (error) {
     appError(error, res);
   }

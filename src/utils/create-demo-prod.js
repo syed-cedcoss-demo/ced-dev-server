@@ -99,9 +99,9 @@ export const createDemoProducts = (id) => {
 
   const config = {
     method: 'post',
-    url: 'https://api.bigcommerce.com/stores/v9fl2aykvn/v3/catalog/products',
+    url: 'https://api.bigcommerce.com/stores/8heb774vzt/v3/catalog/products',
     headers: {
-      'X-Auth-Token': 'trvvrao8t89gsfwu76v1gmp1b974k4z',
+      'X-Auth-Token': 's8h30hbdnli25i76v2631136jlkduav',
       'Content-Type': 'application/json'
     },
     data
