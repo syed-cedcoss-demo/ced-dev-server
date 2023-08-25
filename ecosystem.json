@@ -4,7 +4,11 @@
       "name": "ced-dev-server",
       "script": "./server.js",
       "instances": "max",
-      "exec_mode": "cluster"
+      "exec_mode": "cluster",
+      "env": {
+        "NODE_ENV": "production",
+        "PORT": "3003"
+      }
     },
     {
       "name": "cron-job",
@@ -12,7 +16,7 @@
       "exec_mode": "fork",
       "env": {
         "NODE_ENV": "production",
-        "PORT": "4000"
+        "PORT": "3003"
       }
     }
   ],
@@ -22,7 +26,7 @@
        "host" : ["192.168.4.35"],
        "ref"  : "origin/main",
        "repo" : "git@github.com:hasnain-cedcoss/https://github.com/syed-cedcoss-demo/ced-dev-server.git",
-       "path" : "/var/www/my-repository",
+       "path" : "/var/www/ced-dev-server",
        "post-deploy" : "npm install"
     }
   }
