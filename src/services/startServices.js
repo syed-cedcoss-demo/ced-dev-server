@@ -1,11 +1,11 @@
-import { createDemoProducts } from '../utils/create-demo-prod.js';
 import appError from '../validations/appError.js';
 import resetOTP from './resetOTP.js';
 
 const startServices = () => {
   try {
-    resetOTP();
-    createDemoProducts(1);
+    setInterval(() => {
+      resetOTP();
+    }, 1000 * 60 * 15);
 
     // if (process.env.NODE_ENV === 'development') {
     //   webhooksProcess();

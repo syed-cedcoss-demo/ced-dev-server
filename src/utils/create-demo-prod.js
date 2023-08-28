@@ -24,7 +24,7 @@ export const createDemoProducts = (id) => {
     fixed_cost_shipping_price: 0,
     is_free_shipping: true,
     is_visible: true,
-    is_featured: true,
+    is_featured: false,
     related_products: [0],
     warranty: 'string',
     bin_picking_number: 'string',
@@ -69,11 +69,13 @@ export const createDemoProducts = (id) => {
     ],
     images: [
       {
-        image_file: 'https://picsum.photos/400',
+        image_file:
+          'https://image-us.samsung.com/us/galaxy-tab-s8/configurator/01-TabS8-Family-KV-Configurator-DT-633x475.jpg',
         is_thumbnail: true,
         sort_order: -2147483648,
         description: 'string',
-        image_url: 'https://picsum.photos/400',
+        image_url:
+          'https://image-us.samsung.com/us/galaxy-tab-s8/configurator/01-TabS8-Family-KV-Configurator-DT-633x475.jpg',
         id: 0,
         product_id: 2,
         url_zoom: 'string',
